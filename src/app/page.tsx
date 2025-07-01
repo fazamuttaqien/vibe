@@ -7,14 +7,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export default function Home() {
+const Page = () => {
   const [value, setValue] = useState("");
 
   const trpc = useTRPC();
-  const invoke = useMutation(
-    trpc.invoke.mutationOptions({
+  const createMessage = useMutation(
+    trpc.messages.create.mutationOptions({
       onSuccess: () => {
-        toast.success("Background job started");
+        toast.success("Message created");
       },
     })
   );
@@ -23,11 +23,11 @@ export default function Home() {
     <div className="p-4 max-w-7xl mx-auto">
       <Input value={value} onChange={(e) => setValue(e.target.value)} />
       <Button
-        disabled={invoke.isPending}
-        onClick={() => invoke.mutate({ value: value })}
+        disabled={createMessage.isPending}
+        onClick={() => createMessage.mutate({ value: value })}
       >
-        Invoke Background Job
+        Invoke background jobs
       </Button>
     </div>
   );
-}
+};
