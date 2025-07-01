@@ -1,7 +1,18 @@
-import { caller } from "@/trpc/server";
+"use client";
 
-export default async function Home() {
-  const data = await caller.createAI({ text: "FM Server" });
+import { Button } from "@/components/ui/button";
+import { useTRPC } from "@/trpc/client";
+import { useMutation } from "@tanstack/react-query";
 
-  return <div>{JSON.stringify(data)}</div>;
+export default function Home() {
+  const trpc = useTRPC();
+  const invoke = useMutation(trpc.invoke.mutationOptions({}));
+
+  return (
+    <div className="p-4 max-w-7xl mx-auto">
+      <Button onClick={() => invoke.mutate({ text: "Alan" })}>
+        Invoke Background Job
+      </Button>
+    </div>
+  );
 }
