@@ -5,7 +5,7 @@ export const helloworld = inngest.createFunction(
   { id: "hello-world" },
   { event: "test/hello.world" },
   async ({ event }) => {
-    const summarizer = createAgent({
+    const codeAgent = createAgent({
       name: "summarizer",
       system: "You are an expert summarizer. You summarize in 2 words",
       model: gemini({
@@ -14,7 +14,7 @@ export const helloworld = inngest.createFunction(
       }),
     });
 
-    const { output } = await summarizer.run(
+    const { output } = await codeAgent.run(
       `Summarize the following text: ${event.data.value}`
     );
 
