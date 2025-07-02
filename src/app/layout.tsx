@@ -1,9 +1,13 @@
-import { Oxanium, Fira_Code } from "next/font/google";
+import { ReactNode } from "react";
 import type { Metadata } from "next";
-import "./globals.css";
+import { Oxanium, Fira_Code } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+
+import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
-import { ThemeProvider } from "next-themes";
+
+import "./globals.css";
 
 const oxanium = Oxanium({
   subsets: ["latin"],
@@ -22,25 +26,27 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <TRPCReactProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${oxanium.variable} ${firaCode.variable} antialiased`}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+    <ClerkProvider>
+      <TRPCReactProvider>
+        <html lang="en" suppressHydrationWarning>
+          <body
+            className={`${oxanium.variable} ${firaCode.variable} antialiased`}
           >
-            <Toaster />
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </TRPCReactProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Toaster />
+              {children}
+            </ThemeProvider>
+          </body>
+        </html>
+      </TRPCReactProvider>
+    </ClerkProvider>
   );
 }

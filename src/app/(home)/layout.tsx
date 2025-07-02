@@ -1,3 +1,4 @@
+import { Navbar } from "@/modules/home/ui/components/navbar";
 import clsx from "clsx";
 import { ReactNode } from "react";
 
@@ -8,6 +9,7 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <main className="flex flex-col min-h-screen max-h-screen">
+      <Navbar />
       <div
         className={clsx(
           "absolute inset-0 -z-10 h-full w-full bg-background",

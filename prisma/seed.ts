@@ -1,8 +1,8 @@
-import { PrismaClient, Prisma } from "@/generated/prisma";
+import { PrismaClient } from "@/generated/prisma";
 
 const prisma = new PrismaClient();
 
-const userData: Prisma.UserCreateInput[] = [
+const userData: UserCreateInput[] = [
   {
     name: "Alice",
     email: "alice@prisma.io",
