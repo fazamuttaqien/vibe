@@ -1,4 +1,5 @@
 import { ProjectForm } from "@/modules/home/ui/components/project-form";
+import { ProjectList } from "@/modules/home/ui/components/project-list";
 
 import Image from "next/image";
 
@@ -25,6 +26,7 @@ const Page = () => {
           <ProjectForm />
         </div>
       </section>
+      <ProjectList />
     </div>
   );
 };

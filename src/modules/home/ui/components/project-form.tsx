@@ -22,7 +22,6 @@ import { Form, FormField } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { PROJECT_TEMPLATES } from "../../constants";
 
-import { ProjectList } from "./project-list";
 import { useClerk } from "@clerk/nextjs";
 
 const formSchema = z.object({
@@ -48,16 +47,19 @@ export const ProjectForm = () => {
   const createProject = useMutation(
     trpc.projects.create.mutationOptions({
       onSuccess: (data) => {
-        form.reset();
         queryClient.invalidateQueries(trpc.projects.getMany.queryOptions());
+        queryClient.invalidateQueries(trpc.usage.status.queryOptions());
         router.push(`/projects/${data.id}`);
-        // TODO: Invalidate usage status
       },
       onError: (error) => {
         toast.error(error.message);
-        
+
         if (error.data?.code === "UNAUTHORIZED") {
           clerk.openSignIn();
+        }
+
+        if (error.data?.code === "TOO_MANY_REQUESTS") {
+          router.push("/pricing");
         }
       },
     })
