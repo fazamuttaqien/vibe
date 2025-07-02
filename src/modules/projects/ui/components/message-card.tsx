@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Fragment, MessageRole, MessageType } from "@/generated/prisma";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { Code2Icon } from "lucide-react";
+import { ChevronRightIcon, Code2Icon } from "lucide-react";
 import Image from "next/image";
 
 interface UserMessageProps {
@@ -45,6 +45,9 @@ const FragmentCard = ({
           {fragment.title}
         </span>
         <span className="text-sm">Preview</span>
+      </div>
+      <div className="flex items-center justify-center mt-0.5">
+        <ChevronRightIcon className="size-4" />
       </div>
     </button>
   );
