@@ -143,8 +143,8 @@ export const ProjectForm = () => {
             </Button>
           ))}
         </div>
+        <ProjectList />
       </section>
-      <ProjectList />
     </Form>
   );
 };
