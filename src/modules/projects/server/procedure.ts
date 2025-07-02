@@ -13,7 +13,7 @@ export const projectRouter = createTRPCRouter({
       })
     )
     .query(async ({ input }) => {
-      const existingProject = await prisma.project.findMany({
+      const existingProject = await prisma.project.findUnique({
         where: {
           id: input.id,
         },
